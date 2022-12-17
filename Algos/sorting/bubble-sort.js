@@ -10,4 +10,5 @@ const bubbleSort = array => {
         if (!arrayHasChanged) return array;
         arrayHasChanged = false;
     }
+    return array;
 };
