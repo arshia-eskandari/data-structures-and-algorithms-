@@ -11,13 +11,13 @@ class UndirectedGraph {
         this.adjacencyList = new Map();
         this.numberOfNodes = 0;
         this.nodes = {};
-        this.start = null;
+        // this.start = null;
     }
 
     addVertex(nodeValue) {
         if (nodeValue in this.nodes) return -1;
         const node = new Node(nodeValue);
-        if (this.numberOfNodes === 0) this.start = node;
+        // if (this.numberOfNodes === 0) this.start = node;
         this.nodes[nodeValue] = node;
         this.adjacencyList.set(node, []);
         this.numberOfNodes++;
@@ -67,6 +67,10 @@ class UndirectedGraph {
     showList() {
         console.log(this.adjacencyList);
     }
+
+    getAdjacencyList() {
+        return [...this.adjacencyList];
+    }
 }
 
 const myGraph = new UndirectedGraph();
@@ -99,4 +103,17 @@ const dFS = (node, graph, visited, target, path = '') => {
 dFS(myGraph.start, myGraph.adjacencyList, {}, 10);
 console.log(myGraph.path);
 
-// DFS for connected components
+const dFSConnectedComps = (at, adjList, visited, connectedComps, groupNum) => {
+    if (at > adjList.length) return;
+    if (adjList[at][0] in visited) groupNum--;
+    else connectedComps[groupNum] = [adjList[at][0]];
+    visited[adjList[at][0]] = true;
+
+    const neighbors = adjList[at][1];
+    for (let neighbor of neighbors) {
+        if (neighbor[0] in visited) continue;
+        visited[neighbor[0]] = true;
+        connectedComps[groupNum].push(neighbor[0]);
+    }
+    dFSConnectedComps(at + 1, adjList, visited, connectedComps, groupNum + 1);
+};

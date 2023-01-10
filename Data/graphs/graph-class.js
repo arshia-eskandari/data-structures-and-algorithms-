@@ -3,6 +3,7 @@ class Graph {
         this.numberOfNodes = 0;
         this.adjacentList = {};
     }
+
     addVertex(node) {
         if (this.adjacentList.node !== undefined) return this;
         this.numberOfNodes++;
@@ -61,3 +62,66 @@ myGraph.showConnections();
 // 4-->3 2 5
 // 5-->4 6
 // 6-->5
+
+const dFS = (node, adjList, visited) => {
+    if (node in visited) return;
+    visited[node] = true;
+
+    const neighbors = adjList[node];
+    for (let neighbor of neighbors) {
+        if (neighbor in visited) continue;
+        else dFS(neighbor, adjList, visited);
+    }
+};
+
+const dFSComponent = (node, adjList, visited, comp) => {
+    if (node in visited) return;
+    visited[node] = true;
+    comp.push(node);
+
+    const neighbors = adjList[node];
+    for (let neighbor of neighbors) {
+        if (neighbor in visited) continue;
+        else dFS(neighbor, adjList, visited);
+    }
+};
+
+const dFSconnectedComps = adjList => {
+    const connectedComps = [];
+    const nodes = Object.keys(adjList);
+    const visited = {};
+
+    for (let node of nodes) {
+        if (node in visited) continue;
+        const comp = [];
+        dFSComponent(node, adjList, visited, comp);
+        connectedComps.push(comp);
+    }
+    return connectedComps;
+};
+
+const bFS = (s, adjList) => {
+    const queue = [];
+    queue.push(s);
+
+    const visited = {};
+    visited[s] = true;
+
+    const nodeArr = [];
+    nodeArr.push(s);
+
+    while (queue.length !== 0) {
+        const node = queue.pop();
+        const neighbors = adjList[node];
+
+        for (let neighbor of neighbors) {
+            if (neighbor in visited) continue;
+            queue.push(neighbor);
+            visited[neighbor] = true;
+            nodeArr.push(neighbor);
+        }
+    }
+    return nodeArr;
+};
+
+console.log(bFS('0', myGraph.adjacentList));
