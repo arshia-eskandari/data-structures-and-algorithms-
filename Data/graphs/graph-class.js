@@ -124,4 +124,57 @@ const bFS = (s, adjList) => {
     return nodeArr;
 };
 
+// const bFSTarget = (s, e, adjList) => {
+//     const queue = [];
+//     queue.push(s);
+
+//     const visited = {};
+//     visited[s] = true;
+
+//     const nodeArr = [];
+//     nodeArr.push([s]);
+
+//     let startBackTracking = false;
+//     let lvl = 0;
+//     while (queue.length !== 0) {
+//         const node = queue.pop();
+//         const neighbors = adjList[node];
+
+//         nodeArr.push([]);
+//         for (let neighbor of neighbors) {
+//             if (neighbor in visited) continue;
+//             console.log(lvl, neighbor)
+//             if (neighbor === e) {
+//                 console.log(nodeArr)
+//                 startBackTracking = true;
+//                 break;
+//             }
+//             queue.push(neighbor);
+//             visited[neighbor] = true;
+//             nodeArr[nodeArr.length - 1].push(neighbor);
+//         }
+        
+//         if (queue.length === 0) return -1;
+//         lvl++;
+//         if (startBackTracking) break;
+//     }
+//     nodeArr.pop();  
+    
+//     console.log(nodeArr)
+//     let vertex = e;
+//     const shortestPath = new Array(lvl + 1);
+//     shortestPath[lvl] = e;
+//     for (let i  = nodeArr.length - 1; i > -1; i--) {
+//         for (let j = 0; j < nodeArr[i].length; j++) {
+//             if (adjList[vertex].includes(nodeArr[i][j])) {
+//                 lvl--
+//                 vertex = nodeArr[i][j];
+//                 shortestPath[lvl] = vertex;
+//                 break;
+//             }
+//         }
+//     }
+//     return shortestPath;
+// }
+
 console.log(bFS('0', myGraph.adjacentList));
