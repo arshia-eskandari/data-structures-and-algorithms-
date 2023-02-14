@@ -9,7 +9,7 @@ const dFS = (id, adjList, informTime) => {
     return max + informTime[id];
 };
 
-var numOfMinutes = function (n, headID, manager, informTime) {
+var numOfMinutes = function (n, headID, managers, informTime) {
     const adjList = managers.map(() => []);
 
     for (let employee = 0; employee < n; employee++) {
