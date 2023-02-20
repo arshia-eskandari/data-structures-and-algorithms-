@@ -12,7 +12,7 @@ class Monarchy {
         this._people = { [this.king.name]: this.king };
     }
     birth(child, parent) {
-        const parent = this._people[parentName];
+        const parent = this._people[parent];
         const newChild = new Person(child);
         parent.children.push(newChild);
         this._people[child] = newChild;
